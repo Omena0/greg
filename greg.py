@@ -11,7 +11,7 @@ verbs = ["wrote", "developed", "created", "made", "invented", "did", "generated"
 adjectives = ["an amazing", "a cool", "an awesome", "a fantastic", "a great", "an incredible", "an outstanding", "a marvelous", "a superb", "a brilliant", "an insane", "a fire", "a greg", "a W", "a cool", "a real", "a fucking"]
 things = ["game", "website", "script", "program", "software", "app", "AI", "robot", "machine learning model", "neural network", "greg", "greg generator", "programming language", "compiler", "interperter", "chat application", "thing"]
 
-shuffle = False
+shuffle = True
 
 titles = []
 for title in titles_:
@@ -47,7 +47,9 @@ def greg():  # sourcery skip: for-append-to-extend
     if shuffle: r.shuffle(gregs_did_what)
     return gregs_did_what
 
-gregs = greg()
+gregs = []
+for _ in range(10):
+    gregs.extend(greg())
 
 if shuffle: r.shuffle(gregs)
 
