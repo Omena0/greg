@@ -6,7 +6,7 @@ def func(lines):
     max_gregs = ''
     count = 0
     for i in lines:
-        linecount = i.count('greg')
+        linecount = i.lower().count('greg ')
         if linecount > count:
             count = linecount
             max_gregs = i

@@ -1,26 +1,40 @@
 # sourcery skip: for-append-to-extend
+from humanfriendly import format_timespan
+from colorama import Fore
 import random as r
+import time as t
+import roman
+import os
 
-names = ['Yousuuf gaimar', "Greg", "Gregory", "Useef gaimar"]
+os.system('')
 
-titleVerbs = ['Slayer', 'Destroyer', 'Obliterator']
-titles_ = ["The .. of gods", "The .. of gregs", "The chosen one", "The greg", "The gregger"]
-suffixes = ["the I", "the II", "the III", "the IV", "of the Greg", "of the Gregory"]
+def colored(text,color):
+    return f"{color}{text}{Fore.RESET}"
 
-verbs = ["wrote", "developed", "created", "made", "invented", "did", "generated", "compiled", "implemented", "debugged", "programmed", "coded", "greg", "gregged", "did", "coped on", "is", "is not"]
+names = ["Yousuuf gaimar", "Greg", "Gregory", "Useef gaimar", "Grug", "Grugory"]
+
+titleVerbs = ["slayer", "destroyer", "obliterator", "tearer", "dismantler", "killer", "defeater", "hero"]
+titles_ = ["The .. of gods", "The .. of gregs", "The .. of the Gregory", "The chosen one", "The greg", "The gregger"]
+suffixes = ["of the Greg", "of the Gregory", "of the Gregory greg greg"]
+#nuh uh adverbs = ["badly", "horribly", "really", "terribly", "wonderfully"]
+
+verbs = ["wrote", "developed", "created", "made", "invented", "did", "generated", "compiled", "implemented", "debugged", "programmed", "coded", "greg", "gregged", "did", "coped on", "is", "is not", "generated", "will always be", "will never be", "planned"]
 adjectives = ["an amazing", "a cool", "an awesome", "a fantastic", "a great", "an incredible", "an outstanding", "a marvelous", "a superb", "a brilliant", "an insane", "a fire", "a greg", "a W", "a cool", "a real", "a fucking"]
-things = ["game", "website", "script", "program", "software", "app", "AI", "robot", "machine learning model", "neural network", "greg", "greg generator", "programming language", "compiler", "interperter", "chat application", "thing"]
+things = ["game", "website", "script", "program", "software", "app", "AI", "robot", "machine learning model", "neural network", "greg", "greg generator", "programming language", "compiler", "interperter", "chat application", "thing", "greem", "idea"]
 
 shuffle = True
 
+for i in range(10):
+    suffixes.append(f"The {roman.toRoman(i+1)}")
+
 titles = []
 for title in titles_:
-    if '..' not in title:
+    if ".." not in title:
         titles.append(title)
         continue
 
     for verb in titleVerbs:
-        titles.append(title.replace('..', verb))
+        titles.append(title.replace("..", verb))
 
 def greg_names_frfr_ong():  # sourcery skip: for-append-to-extend
     """greg greg generator"""
@@ -28,29 +42,54 @@ def greg_names_frfr_ong():  # sourcery skip: for-append-to-extend
     for name in names:
         for title in titles:
             for suffix in suffixes:
-                gregs.append(f'{name} {title} {suffix}')
+                gregs.append(f"{name} {title} {suffix}")
 
-    if shuffle: r.shuffle(gregs)
     return gregs
-
 
 def greg():  # sourcery skip: for-append-to-extend
     """Greg generator"""
+    i = 0
+    eta = 0
+    old_time = t.time()
+    old_i = 0
+    progress = 0
+
     gregs_did_what = []
     gregs = greg_names_frfr_ong()
+    
+    total_lines = len(gregs)*len(verbs)*len(adjectives)*len(things)
+
+    print(f'Generating {total_lines} of GREG')
+
     for greg in gregs:
         for verb in verbs:
             for adjective in adjectives:
                 for thing in things:
-                    gregs_did_what.append(f'{greg} {verb} {adjective} {thing}\n')
+                    gregs_did_what.append(f"{greg} {verb} {adjective} {thing}\n")
+                    i += 1
 
-    if shuffle: r.shuffle(gregs_did_what)
+        percent = i/total_lines*100
+        pbar = colored("#",Fore.GREEN)*int(percent)
+
+        if i%100 == 0:
+            progress = i-old_i
+            dt = t.time() - old_time
+            old_time = t.time()
+            old_i = i
+            eta = (total_lines - i) / (progress * dt + 0.0001)
+
+        print(f'Generating: {round(percent,3):<5}% | GPS: {progress} | ETA: {format_timespan(eta,max_units=2):<30}',f'{pbar:.<100}'.replace('.',colored('#',Fore.LIGHTBLACK_EX)),end="\r")
+
     return gregs_did_what
 
 gregs = []
-for _ in range(10):
+for _ in range(1):
     gregs.extend(greg())
+
+print('\nShuffling...')
 
 if shuffle: r.shuffle(gregs)
 
-with open('greg.txt','w') as f: f.writelines(gregs)
+print("Saving...")
+
+with open("greg.txt","w") as f: f.writelines(gregs)
