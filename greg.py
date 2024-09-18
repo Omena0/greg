@@ -37,7 +37,7 @@ for title in titles_:
         titles.append(title.replace('..', verb))
 
 def greg_names_frfr_ong():  # sourcery skip: for-append-to-extend
-    '''greg greg generator'''
+    """greg greg generator"""
     gregs = []
     for name in names:
         for title in titles:
@@ -47,7 +47,7 @@ def greg_names_frfr_ong():  # sourcery skip: for-append-to-extend
     return gregs
 
 def greg():  # sourcery skip: for-append-to-extend
-    '''Greg generator'''
+    """Greg generator"""
     i = 0
     eta = 0
     old_time = t.time()
