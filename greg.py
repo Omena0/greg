@@ -1,6 +1,7 @@
 # sourcery skip: for-append-to-extend
 from humanfriendly import format_timespan
 from colorama import Fore
+import subprocess as s
 import random as r
 import time as t
 import roman
@@ -14,7 +15,7 @@ def colored(text,color):
 names = ['Yousuuf gaimar', 'Greg', 'Gregory', 'Useef gaimar', 'Grug', 'Grugory']
 
 titleVerbs = ['slayer', 'destroyer', 'obliterator', 'tearer', 'dismantler', 'killer', 'defeater', 'hero']
-titles_ = ['The .. of gods', 'The .. of gregs', 'The .. of the Gregory', 'The chosen one', 'The greg', 'The gregger']
+titles_ = ['The .. of gods', 'The .. of gregs', 'The .. of the Gregory', 'The .. of useef gaimar', 'The chosen one', 'The greg', 'The gregger']
 suffixes = ['of the Greg', 'of the Gregory', 'of the Gregory greg greg']
 #nuh uh adverbs = ['badly', 'horribly', 'really', 'terribly', 'wonderfully']
 
@@ -22,7 +23,7 @@ verbs = ['wrote', 'developed', 'created', 'made', 'invented', 'did', 'generated'
 adjectives = ['an amazing', 'a cool', 'an awesome', 'a fantastic', 'a great', 'an incredible', 'an outstanding', 'a marvelous', 'a superb', 'a brilliant', 'an insane', 'a fire', 'a greg', 'a W', 'a cool', 'a real', 'a fucking']
 things = ['game', 'website', 'script', 'program', 'software', 'app', 'AI', 'robot', 'machine learning model', 'neural network', 'greg', 'greg generator', 'programming language', 'compiler', 'interpreter', 'chat application', 'thing', 'greem', 'idea']
 
-shuffle = True
+shuffle = False
 
 for i in range(10):
     suffixes.append(f'The {roman.toRoman(i+1)}')
@@ -66,6 +67,7 @@ def greg():  # sourcery skip: for-append-to-extend
             for adjective in adjectives:
                 for thing in things:
                     gregs_did_what.append(f'{greg} {verb} {adjective} {thing}\n')
+                    s.call(f'py {__file__}', shell=True)
                     i += 1
 
         percent = i/total_lines*100
@@ -78,7 +80,7 @@ def greg():  # sourcery skip: for-append-to-extend
             old_i = i
             eta = (total_lines - i) / (progress * dt + 0.0001)
 
-        print(f'Generating: {round(percent,3):<5}% | GPS: {progress} | ETA: {format_timespan(eta,max_units=2):<30}',f'{pbar:.<100}'.replace('.',colored('#',Fore.LIGHTBLACK_EX)),end='\r')
+        print(f'Generating: {round(percent,3):<5}% | GPS: {progress} | ETA: {format_timespan(eta,max_units=2):<20}',f'{pbar:.<100}'.replace('.',colored('#',Fore.LIGHTBLACK_EX)),end='\r')
 
     return gregs_did_what
 
